@@ -1,4 +1,4 @@
-COMMIT 1
+BRANCH MAIN
 
 Criamos um novo app chamado "flutter_app" acessando o prompt de comando do computador e inserindo o comando:
 
@@ -67,6 +67,13 @@ O Scaffold tem os atirbutos:
 						tooltip: define a "dica" que é exibida pelo botão indicando sua função.
 								
 						child: recebe como filho do "floatingActionButton" o seu ícone, no caso, "Icon(Icons.add)", que exibe um sinal de adição.
+
+	*floatingActionButtonLocation: este atributo não está sendo utilizado no código, mas quando usado ele define a posição do floatingActionButton, assim:
+
+								floatingActionButtonLocation: FloatingActionButtonLocation.startDocked
+							
+							Neste caso, o floatingActionButtonLocation fica na parte inferior esquerda.
+							
 						
 
 
