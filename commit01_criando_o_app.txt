@@ -1,0 +1,96 @@
+COMMIT 1
+
+Criamos um novo app chamado "flutter_app" acessando o prompt de comando do computador e inserindo o comando:
+
+	flutter create flutter_app
+
+Agora podemos ir direto para a pasta do app com o comando:
+
+	cd
+
+E abrir o VS Code com o comando:
+
+	code .
+
+Agora vamos analisar as partes do app:
+
+Temos 3 estruturas principais:
+
+	A função "main", que chama a aplicação.
+	A classe "MyApp", que é o topo da árvore de widgets da aplicação.
+	A classe "MyHomepage", que define a homepage.
+
+Repare que a classe "MyHomePage" é stateful, ("extends StatefulWidget"), logo, ela possui um método "createState" para que possa construir estados diferentes.
+Para poder construir estados diferentes ela também necessita de uma classe para estes estados. É a classe "_MyHomePageState".
+
+Repare que definimos que a classe "_MyHomePageState" é um estado porque ela extende de "State<MyHomePage>", ou seja, é definida como um estado da classe "MyHomePage".
+
+Neste caso, ela possui apenas o método "_incrementCounter()", que aumenta o contador, e o método builder. Vamos ver ele em detalhes.
+
+O método "_incrementCounter()" apenas aumenta o contador. Repare que é importante que ele execute um método "setState" para que a tela seja atualizada, assim:
+
+	void _incrementCounter() {
+    		setState(() {
+      		_counter++;
+    		});
+	}
+
+O método builder retorna primeiramente um Scaffold, o esqueleto do que está exibido na tela.
+O Scaffold tem os atirbutos:
+
+	appBar: recebe um widget "AppBar". É a barra azul no topo da tela. Recebe como "title" um "Text(widget.title)", ou seja, o atributo "title" do widget que
+			está recebendo estados, no caso, é o "MyHomePage".
+
+	body: é o corpo da tela. Recebe os widgets:
+	
+			Center: centraliza os elementos na tela. Recebe os widgets:
+				Column: recebe uma lista de widgets filhos e organiza eles numa coluna. Tem os atributos:
+
+					mainAxisAlignement: define o alinhamento dos objetos filhos. Se receber "MainAxisAlignment" organiza eles de acordo com o alinhamento
+									principal (no caso, vertical, já que é uma coluna). Se receber "CrossAxisAlignment" organiza eles de acordo com o
+									alinhamento transversal, no caso, horizontal.
+									Recebe ainda atributos como "center" para que sejam alinhados no centro do eixo selecionado, assim:
+
+										MainAxisAlignment.center
+
+					children: recebe a lista de widgets filhos dentro de colchetes, desta forma:
+
+								children: <Widget>[ LISTA DE WIDGETS FILHOS ]
+
+							No caso deste app, ele recebe dois widget "Text" como filhos.
+
+	floatingActionButton: é um botão flutuante. Possui os atributos:
+
+						onPressed: define a ação que será executada ao pressionar o botão. No caso, é a função "_incrementCounter" da própria classe 
+								"_MyHomePageState", que é a classe que define o estado de "MyHomePage".
+
+						tooltip: define a "dica" que é exibida pelo botão indicando sua função.
+								
+						child: recebe como filho do "floatingActionButton" o seu ícone, no caso, "Icon(Icons.add)", que exibe um sinal de adição.
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
