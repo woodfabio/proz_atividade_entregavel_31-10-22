@@ -36,7 +36,14 @@ O método "_incrementCounter()" apenas aumenta o contador. Repare que é importa
 	}
 
 O método builder retorna primeiramente um Scaffold, o esqueleto do que está exibido na tela.
-O Scaffold tem os atirbutos:
+O Scaffold é um widget que divide a tela em: 
+
+	appBar
+	body
+	bottomNavigatorBar
+	floatingActionButton
+
+vejamos os atributos usados neste código:
 
 	appBar: recebe um widget "AppBar". É a barra azul no topo da tela. Recebe como "title" um "Text(widget.title)", ou seja, o atributo "title" do widget que
 			está recebendo estados, no caso, é o "MyHomePage".
