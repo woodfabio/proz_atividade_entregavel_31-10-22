@@ -1,0 +1,8 @@
+BRANCH 1 CONTAINER ROW E COLUMN
+
+
+Widgets podem ser STATEFULL (alternam de estado) ou STATELESS (não alternam o estado).
+
+Widgets desta aula:
+
+Container: cria um quadrilátero na tela.
