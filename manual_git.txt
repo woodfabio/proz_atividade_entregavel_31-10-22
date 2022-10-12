@@ -1,0 +1,185 @@
+
+GIT E GITHUB - GUIA
+
+Vamos considerar que possuímos o repositório remoto no GitHub chamado "GitJoy". A partir disso vamos ver as instruções a seguir.
+
+1 - Iniciando um repositório
+
+	Forma 1: digitar no gitbash o comando:
+
+			cd nome da pasta
+
+		para guiar o nosso prompt de comando para a pasta onde desejamos colocar o projeto.
+		Depois disso, criaremos nossa pasta do projeto igual ao projeto criado no GitHub.
+		A primeira linha de comando cria uma pasta chamada "GitJoy":
+
+			mkdir GitJoy
+			cd GitJoy
+			git init
+
+		Após o init, copiamos o comando SSH no GitHub, que será similar a este:
+
+			git@github.com:SeuNome/GitJoy.git
+
+		Com isso, colocamos o seguinte código no Git Bash:
+
+			git remote add origin git@github.com:SeuNome/GitJoy.git
+
+		Dessa forma, nossa pasta GitJoy está conectada com o nosso projeto no GitHub.
+		Para alterar o endereço do repositório remoto (por exemplo, trocar entre SSH e HTTPS), usamos:
+
+			git remote set-url origin INSIRA_AQUI_O_HTTPS
+
+
+	Forma 2: usar git clone:
+
+		Depois de iniciar o repositório no GitHub, copie o código SSH que aparece na plataforma, abra o Git Bash, navegue pelas pastas
+		até chegar na qual ficará o projeto e execute o seguinte código:
+
+			git clone git@github.com:SeuNome/GitJoy.git
+
+		Pronto. Seu projeto foi clonado para a sua máquina.
+		Acesse a pasta usando o cd GitJoy e todos os arquivos do repositório estarão na sua máquina.
+
+
+2 - Comandos:
+
+	mkdir nomedapasta
+
+		Cria uma pasta chamada "nomedapasta".
+
+	dart create nomedoprojeto
+
+		Cria um projeto dart chamado "nomedoprojeto"
+
+	clear
+
+		Limpa a tela
+
+	git init
+
+		Cria um repositório local na pasta.
+
+	git config --global user.name "nome do usuario"
+
+		Define o nome de usuário como "nome do usuario".
+
+	git config --global user.email usuario@gmail.com
+
+		Define o email do usuário como "usuario@gmail.com".
+
+	git config --global --list
+
+		Exibe o nome de usuário e email de usuário cadastrados.
+
+	git status
+
+		Ele mostra se existem arquivos modificados na máquina, que não foram enviados para o repositório na nuvem.
+
+	git add
+
+		Comando para o arquivo começar a ser monitorado pelo Git (se tornam "tracked").
+		O comando add pode ser utilizado das seguintes formas:
+
+			git add nome_do_arquivo
+
+		ou
+
+			git add *.nome_da_extensão
+
+		ou
+
+			git add
+
+		Assim, podemos adicionar um arquivo específico, todos os arquivos de mesma extensão (todos os arquivos html, por exemplo) 
+		ou todos os arquivos criados na pasta, independente da sua extensão.
+
+		A versão
+			
+			git add .
+
+		vale apenas para a pasta onde estamos no momento.
+
+	git rm -r --cached .
+
+		Faz o oposto, remove todos os arquivos da pasta de "tracked" para "untracked".
+
+	git commit
+
+		Usamos para confirmar o envio do arquivo após adicionar o arquivo para monitoramento.
+		O comando git commit pode ser usado com a seguinte sintaxe:
+
+			git commit –m “Mensagem do commit”
+
+		Podemos "fusionar" o commit atual com o commit anterior assim:
+
+			git commit --amend -m “mensagem da atualização”
+
+	git push
+
+		Esse comando envia todos os commits da máquina para o repositório da nuvem.
+
+	git pull
+
+		Esse comando verifica se existe alguma atualização no repositório da nuvem.
+
+	git ignore
+
+		Após criar uma pasta ".gitignore", enviamos um arquivo que não queremos que seja monitorado pelo Git, usando essa sintaxe:
+
+			.gitignore arquivo_ignorado.txt
+	
+	git reset
+
+		Usado quando usamos o "git add" antes da hora ou em um arquivo que não queremos o monitoramento, com esta sintaxe:
+		
+			Git reset head nome_do_arquivo
+
+	git checkout
+
+		Usado quando realizamos vários testes em um arquivo e queremos desfazer todas as mudanças realizadas no arquivo, com esta sintaxe:
+		
+			git checkout -- nome_do_arquivo
+
+	git rm
+
+		Usado para deletar um arquivo do repositório, com esta sintaxe:
+
+			git rm <nome_do_arquivo>
+
+	git diff
+
+		Usado quando queremos ver o que foi alterado no arquivo sem precisar desfazer as mudanças.
+		O comando apresenta todos os arquivos que têm mudanças e onde eles estão.
+	
+	git log
+
+		Usado para apresentar todos os detalhes dos commits realizados (histórico).
+
+
+  COMANDOS PARA BRANCHES
+
+	git branch nome_do_branch
+
+		Para criar uma branch.
+
+	git checkout nome_do_branch
+
+		Para acessar uma branch.
+
+	git merge nova_funcionalidade
+
+		Para fusionar branches (caso não haja conflito entre elas).
+
+	git branch –d nova_funcionalidade
+
+		Para excluir uma branch.
+
+
+
+
+
+
+
+
+
