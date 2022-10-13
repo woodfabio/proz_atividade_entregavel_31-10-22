@@ -89,6 +89,9 @@ Padding: adiciona espaço entre o widget e as bordas da tela ou outros widgets. 
 
 CircleAvatar: já cria um "container" visual redondo para ser uma imagem de perfil.
 
+SingleChildScrollView: é recebido diretamente pelo "body" do Scaffold e dentro dele estão todos os demais widgets. Permite
+					que a tela seja scrollada.
+
 
 --------------------
 
@@ -96,13 +99,20 @@ Podemos simplificar as coisas separando "contatos" de "contactListTile" (a barri
 
 Primeiro criamos a classe "Contact" com as informações como nome, telefone, cargo, etc.
 Depois, criamos a classe "ContactListTile" que é o widget visual que vai exibir essas informações na tela.
-Por fim, criamos um atributo na classe "_HomePageContactsState" que recebe uma lista com os Contacts, assim:
+Por fim, criamos uma classe "HomeController" que recebe uma lista com os Contacts, assim:
 
-	List<Contact> contacts = [
+	class HomeController {
+		List<Contact> contacts = [
 		
-		LISTA DE CONTACTS
-		
-	]
+			LISTA DE CONTACTS
+			
+		];
+	}
+
+Depois, criamos um atributo "controlle" na classe HomePageContacts que recebe a classe "Controller" já com os Contacts,
+assim:
+
+	final controller = HomeController();
 
 Depois, exibimos as informações do Contact no ContactListTile no Scaffold da homepage assim:
 

@@ -4,7 +4,8 @@ class ContactListTile extends StatelessWidget {
   ContactListTile({
     Key? key,
     required this.name,
-    required this.jobTitle,this.url
+    required this.jobTitle,
+    this.url
   }) : super(key: key);
 
   final String name;

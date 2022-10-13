@@ -14,17 +14,17 @@ class ProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      width: 50.0,
+      width: 50.0,      
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.grey,
+        ),
       child: url != null ?
             Image.network(
               url!,
               fit: BoxFit.cover,
             )
             : null,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.grey,
-        ),
     );
   }
 }
