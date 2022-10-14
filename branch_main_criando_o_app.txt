@@ -66,6 +66,8 @@ vejamos os atributos usados neste código:
 
 							No caso deste app, ele recebe dois widget "Text" como filhos.
 
+	**TIP** fazer o atributo "body" receber um objeto "SafeArea" que, por sua vez, recebe todo o resto. Evita que widgets sejam exibidos fora da área clicável.
+
 	floatingActionButton: é um botão flutuante. Possui os atributos:
 
 						onPressed: define a ação que será executada ao pressionar o botão. No caso, é a função "_incrementCounter" da própria classe 

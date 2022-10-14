@@ -27,6 +27,7 @@ class HomePageContacts extends StatelessWidget {
               name: e.name, 
               jobTitle: e.jobTitle,
               url: e.url,
+              phone: e.phone,
               ),
             ).toList(),
         ),
