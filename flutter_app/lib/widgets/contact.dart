@@ -5,12 +5,12 @@ class Contact {
   const Contact({
     required this.name,
     required this.jobTitle,
-    required this.phone,
+    String? this.phone,
     String? this.url,
   });
 
   final String name;
   final String jobTitle;
-  final String phone;
+  final String? phone;
   final String? url;
   }

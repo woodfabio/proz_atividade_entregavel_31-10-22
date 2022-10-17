@@ -16,7 +16,6 @@ List<Contact> contacts = [
     const Contact(
       name: 'Carlos',
       jobTitle: 'Topo que gira',
-      phone: '321',
       ),
     const Contact(
       name: 'Carlos',

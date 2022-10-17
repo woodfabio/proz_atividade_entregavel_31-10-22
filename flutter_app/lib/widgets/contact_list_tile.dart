@@ -5,13 +5,13 @@ class ContactListTile extends StatefulWidget {
     Key? key,
     required this.name,
     required this.jobTitle,
-    required this.phone,
-    this.url
+    String? this.phone,
+    this.url,
   }) : super(key: key);
 
   final String name;
   final String jobTitle;
-  final String phone;
+  String? phone;
   String? url;  
 
   @override
@@ -33,6 +33,8 @@ class _ContactListTileState extends State<ContactListTile> {
   int get arrowPoint => _isOpened ? -3 : 3;
   double get avatarSize => _isOpened ? 30.0 : 20.0;
   double get opacityPhone => _isOpened ? 1.0 : 0.0;
+  Widget? trailing;
+  CrossFadeState get fadeState => _isOpened ? CrossFadeState.showSecond : CrossFadeState.showFirst;
 
   @override
   Widget build(BuildContext context) {
@@ -83,21 +85,24 @@ class _ContactListTileState extends State<ContactListTile> {
                                       fontSize: 12.0,
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: AnimatedOpacity(
-                                      opacity: opacityPhone,
-                                      duration: const Duration(milliseconds: 500),
-                                      child: Visibility(
-                                        visible: _isOpened,
+                                  ),                                  
+                                  AnimatedCrossFade(
+                                    duration: const Duration(milliseconds: 100),
+                                    crossFadeState: fadeState,
+                                    firstChild: const SizedBox.shrink(),
+                                    secondChild: Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: widget.phone != null ? 
+                                      AnimatedOpacity(
+                                        opacity: opacityPhone,
+                                        duration: const Duration(milliseconds: 500),
                                         child: Text(
-                                          widget.phone,
+                                          widget.phone!,
                                           style: TextStyle(
                                           fontSize: 22.0,
                                           ),
                                         ),
-                                        ),
+                                      ) : null,
                                     ),
                                   ),
                                 ]
@@ -107,10 +112,11 @@ class _ContactListTileState extends State<ContactListTile> {
                   ),
                   RotatedBox(
                     quarterTurns: arrowPoint,
-                    child: IconButton(
+                    child: widget.phone != null ?
+                    IconButton(
                       onPressed: changeState, 
                       icon: const Icon(Icons.arrow_back_ios),
-                      ),
+                      ) : null,
                   ),
                 ],
               ),              
