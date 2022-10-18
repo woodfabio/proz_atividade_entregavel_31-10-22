@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/widgets/contact.dart';
 
 class ContactListTile extends StatefulWidget {
   ContactListTile({
     Key? key,
-    required this.name,
-    required this.jobTitle,
-    String? this.phone,
-    this.url,
+    required this.contact,
+    this.isSquare = false,
   }) : super(key: key);
 
-  final String name;
-  final String jobTitle;
-  String? phone;
-  String? url;  
+  final Contact contact;
+  bool isSquare;  
 
   @override
   State<ContactListTile> createState() => _ContactListTileState();
@@ -31,7 +28,7 @@ class _ContactListTileState extends State<ContactListTile> {
 
   double get containerHeight => _isOpened ? 125.0 : 65.0;
   int get arrowPoint => _isOpened ? -3 : 3;
-  double get avatarSize => _isOpened ? 30.0 : 20.0;
+  //double get avatarSize => _isOpened ? 30.0 : 20.0;
   double get opacityPhone => _isOpened ? 1.0 : 0.0;
   Widget? trailing;
   CrossFadeState get fadeState => _isOpened ? CrossFadeState.showSecond : CrossFadeState.showFirst;
@@ -42,7 +39,9 @@ class _ContactListTileState extends State<ContactListTile> {
       padding: const EdgeInsets.all(8.0),
       child: AnimatedContainer(
         height: containerHeight,
-        width: double.infinity,
+        width: widget.isSquare ? 
+                MediaQuery.of(context).size.width/2
+                : double.infinity,
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
@@ -62,9 +61,9 @@ class _ContactListTileState extends State<ContactListTile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: CircleAvatar(
-                          maxRadius: avatarSize,
-                            backgroundImage: widget.url != null ?
-                                            NetworkImage(widget.url!) :
+                          maxRadius: MediaQuery.of(context).size.width/20,
+                            backgroundImage: widget.contact.url != null ?
+                                            NetworkImage(widget.contact.url!) :
                                             NetworkImage('https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80',),
                           ),
                         ),
@@ -76,13 +75,13 @@ class _ContactListTileState extends State<ContactListTile> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(top: 1.0),
-                                    child: Text(widget.name),
+                                    child: Text(widget.contact.name),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 0.1),
-                                    child: Text(widget.jobTitle,
+                                    child: Text(widget.contact.jobTitle,
                                       style: TextStyle(
-                                      fontSize: 12.0,
+                                      fontSize: 10.0,
                                       ),
                                     ),
                                   ),                                  
@@ -92,12 +91,12 @@ class _ContactListTileState extends State<ContactListTile> {
                                     firstChild: const SizedBox.shrink(),
                                     secondChild: Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
-                                      child: widget.phone != null ? 
+                                      child: widget.contact.phone != null ? 
                                       AnimatedOpacity(
                                         opacity: opacityPhone,
                                         duration: const Duration(milliseconds: 500),
                                         child: Text(
-                                          widget.phone!,
+                                          widget.contact.phone!,
                                           style: TextStyle(
                                           fontSize: 22.0,
                                           ),
@@ -112,7 +111,7 @@ class _ContactListTileState extends State<ContactListTile> {
                   ),
                   RotatedBox(
                     quarterTurns: arrowPoint,
-                    child: widget.phone != null ?
+                    child: widget.contact.phone != null ?
                     IconButton(
                       onPressed: changeState, 
                       icon: const Icon(Icons.arrow_back_ios),

@@ -12,6 +12,7 @@ class HomePageContacts extends StatelessWidget {
     });
  
   final controller = HomeController();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +20,37 @@ class HomePageContacts extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Contacts App'),  
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: controller.contacts.map(
-            (e) => ContactListTile(
-              name: e.name, 
-              jobTitle: e.jobTitle,
-              url: e.url,
-              phone: e.phone,
+      body: ListView.builder(
+        itemCount: controller.contacts.length,
+        padding: const EdgeInsets.all(8.0),
+        controller: scrollController,
+        itemBuilder: (context, index) {
+          if (index == controller.contacts.length - 1) {
+            return Column(
+              children: [
+                ContactListTile(
+                contact: controller.contacts[index],
               ),
-            ).toList(),
-        ),
+              TextButton(
+                onPressed: () {
+                  scrollController.animateTo(
+                    0,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.easeIn,
+                    );
+                },
+                child: const Text(
+                  'Voltar ao topo'
+                  ),
+                ),
+              ],
+            );
+          }
+            return ContactListTile(
+                contact: controller.contacts[index],
+              );
+                   
+        }
       ),
     );  
   }
