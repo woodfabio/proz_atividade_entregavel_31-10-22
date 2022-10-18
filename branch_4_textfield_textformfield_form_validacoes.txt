@@ -1,18 +1,182 @@
 BRANCH 3 - TextField, TextFormField, Form, validações
 
 Um form de cadastro geralmente é feito com uma coluna que recebe campos de preenchimento, textos e botões como filhos.
+Os campos de preenchimento são criados com o widget "TextFormField". Ele basicamente é um campo de preenchimento com
+inúmeros parâmetros personalizáveis. Vejamos alguns deles:
 
+Border: possui variações:
+		focusedBorder
+		errorBorder
+		focusedErrorBorder
+		disabledBorder
+
+
+TextInputFormatter: permite limitar o número de caracteres aceitos no campo. Criamos um atributo na classe
+				"CustomTextFormField", assim:
+
+					final List<TextInputFormatter>? inputFormatters;
+
+				Depois, ao usar um CustomTextFormField alimentamos este atributo assim:
+
+					inputFormatters: [
+                  			LengthLimitingTextInputFormatter(14),
+                			],
+
+hintText: atributo de "InputDecoration" (que alimenta o atributo "decoration" do TextFormField) que exibe no campo uma
+		sugestão de preenchimento, semelhante a uma máscara. Primeiro criamos um atributo na classe CustomTextFormField,
+		assim:
+
+			final String? hintText;
+
+		Que depois é preenchido assim:
 		
+			decoration: InputDecoration(
+				hintText: '+55 (51) 00000-0000',
+			),
 
 
 
+mask_text_input_formatter: pacote que permite facilmente criar máscaras no campo de preenchimento.
+					Deve ser adicionado no arquivo "pubspec.yaml", nesta área:
+
+						dependencies:
+						  flutter:
+						    sdk: flutter
+						  mask_text_input_formatter: ^2.4.0
+
+					Onde o acento circunflexo antes do número da versão permite que o programa use versões
+					atualizadas automaticamente.
+					***NÃO ESQUECER de apertar Ctrl +S.
+
+					Após, criamos um atributo na classe CreateAccount assim:
+
+						final _phoneMaskFormatter = MaskTextInputFormatter(
+						    mask: '+00 (00) 00000-0000',
+						    filter: {"0": RegExp(r'[0-9]')},
+						    type: MaskAutoCompletionType.lazy,
+						);
+
+					Estes validadores geralmente são componentizados e guardados numa pasta "helpers/utils" com
+					um método estático, de forma semelhante aos validadores (ver abaixo).
+
+validator: atributo do TextFormField que recebe uma função, a qual recebe uma String nulável e retorna uma String nulável.
+
+		final String? Function(String?)? validator;
+		
+		Podemos usar o pacote "cpf_cnpj_validator", que é instalado da mesma forma que o mask_text_input_formatter:
+
+			dependencies:
+				flutter:
+					sdk: flutter
+				cpf_cnpj_validator: ^2.0.0
+
+		Depois, podemos usá-lo assim:
+
+			validator: (value) {
+				return CPFValidator.isValid(value) ?
+				null
+				: "CPF inválido";
+			},
+		
+		Repare que a função é nulável justamente para poder retornar null quando a String passada a ela for considerada
+		válida.
+		Também podemos criar nosso validador para atender a exigências de senha usando regular expressions, veja:
+
+			validator: (password) {
+				if (password == null ||
+				    password.isEmpty ||
+				    password.length < 8) {
+					return 'Senha inválida';
+				} else if (!RegExp(r'^(?=.*[A-Z]').hasMatch(password)) {
+					return 'A senha deve conter letras maiúsculas.';
+				},
+			},
+
+		Podemos também simplesmente atribuir a regular expressiona a uma variável e utilizá-la:
+
+			validator: (password) {
+		
+				regex = RegExp(RegExp(r'^(?=.*[A-Z]'));
+
+				if (password == null ||
+				    password.isEmpty ||
+				    password.length < 8) {
+					return 'Senha inválida';
+				} else if (!regex.hasMatch(password)) {
+					return 'A senha deve conter letras maiúsculas.';
+				},
+			},
+
+		Para que o validador funcione precisamos também de um autoValidadeMode, criando um atributo na classe
+		CustomTextFormField:
+
+			final AutoValidateMode? autoValidateMode;
+
+		E depois alimentando ele assim, por exemplo:
+
+			autoValidateMode: AutoValidateMode.onUserInteraction,
+
+		Estes validadores geralmente são componentizados e guardados numa pasta "helpers/utils" com um método estático.
+		Supondo a componentização numa classe criada chamada "Validators" com o método validador "validateCpf", a função
+		validadora então é chamada assim:
+
+			validator: (value) => Validators.validateCpf(value),
 
 
+helperText: atributo do TextFormField que recebe uma String que é exibida abaixo do campo de preenchimento, geralmente
+			com orientações sobre o preenchimento.
+
+helperMaxLines: define a quebra de linha do helperText.
+
+suffix: atributo do TextFormField que define um widget exibido no final do campo de preenchimento. Geralmente recebe
+		um IconButton que recebe no onPressed uma função para exibir ou não a senha digitada.
+		Para isso, primeiro criamos atributos na classe do CustomTextFormField:
+
+			final bool? obscureText = false;
+
+		Repare que por default ela é false.
+		Depois, criamos a função:
+
+			suffix: InkWell(
+				onPressed: () {
+					setState (() {
+						obscureText = !obscureText;
+					})
+				},
+				icon: Icon(
+					obscureText ? Icons.visibility : Icons.vsibility_off;
+				),
+			)
+
+----
 
 
+Para criar o formulário em si, criamos um widget "Form" que recebe uma Column que recebe os TextFormField. Este Form
+recebe ainda o atributo "onChanged", que chama uma função setState, assim:
 
+	onChanged: () {
+		setState(() {});
+	}
 
+e  também um atributo "key". Para preencher essa key, vamos criar na classe _CreateAccountState este atributo:
 
+	final _formKey = GlobalKey<FormState>();
+
+Após isso, alimentamos esta variável no atributo key:
+
+	key: _formKey,
+
+Após isso, podemos criar o botão para finalizar o formulário, que será um ElevatedButton. Vamos alimentar o atributo
+onPressed assim:
+
+	ElevatedButton(
+		onPressed: _formKey.currentState!.validate() &&
+				_formKey.currentState! "= null ? () {} : null,
+		child: Text('Cadastrar'),
+	),
+
+A função do onPressed basicamente diz que "se não for nulo e for válido, retorne a função, senão, retorne null". Isso
+porque quando a função do onPressed for nula, o botão fica desativado.
 
 
 
