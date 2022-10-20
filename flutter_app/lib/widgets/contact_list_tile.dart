@@ -6,7 +6,7 @@ class ContactListTile extends StatefulWidget {
     Key? key,
     required this.contact,
     this.isSquare = false,
-  }) : super(key: key);
+  }) : super(key: key); 
 
   final Contact contact;
   bool isSquare;  

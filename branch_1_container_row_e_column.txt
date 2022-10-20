@@ -1,8 +1,8 @@
 BRANCH 1 CONTAINER ROW E COLUMN
 
 
-Widgets podem ser STATEFULL (alternam de estado) ou STATELESS (não alternam o estado).
-Widgets Statefull aleram seus status na tela usando métodos setState.
+Widgets podem ser STATEFUL (alternam de estado) ou STATELESS (não alternam o estado).
+Widgets Stateful alteram seus status na tela usando métodos setState.
 Quando instanciamos um objeto que recebe uma função como parâmetro, esta função é declarada com seu parâmetro
 desta forma:
 
