@@ -1,0 +1,171 @@
+BRANCH 7 - Navegação, TODO app
+
+
+Na pasta "lib" criamos uma pasta "src" (source) para conter os arquivos de cada tela.
+
+Primeiro criamos a classe "SplashScreen" como StatefulWidget.
+A classe MyHomePage é substituída pela SplashScreen na classe main. (é recebida pelo atributo "home").
+Depois, criamos classes para cada estado da SplashScreen:
+
+	abstract class SplashState {}
+
+	class SplashStateAthenticated extends SplashState {}
+
+	class SplashStateUnauthenticated extends SplashState {}
+
+Geralmente há também uma classe "SplashController" que verifica, por exemplo, se o usuário já está logado, para decidir
+para onde ele pode ser encaminhado como próxima página: se ele é encaminhado para a homepage ou para a página de login,
+por exemplo, veja:
+
+	class SplashController {
+		SplashController();
+
+		Future<SplashState> isAuthenticated() async {
+			final prefs = await SharedPreferences.getInstance();
+			prefs.reload();
+			final isAuthenticated = prefs.getBool('hasUser');
+
+			if (isAuthenticated != null && isAuthenticated) {
+				return SplashStateAuthenticated();
+			} else {
+				return SplashStateUnauthenticated();
+			}
+			
+		}
+	}
+
+A função "getBool" usada usa uma estrutura chave-valor e busca a chave 'hasUser' no objeto do tipo SharedPreferences que
+foi isntanciado na variável "prefs". Caso exista essa chave 'hasUser' a função retorna true, senão, retorna false.
+
+Depois, na classe "_SplashScreenState" criamos uma função initState, assim:
+
+	@override
+	void initState() {
+		Future.delayed(const Duration(seconds: 2)).then(		// aqui novamente simulamos o tempo de chamada de uma API
+			(value) async {
+				final anthenticationState = controller.isAuthenticated().then((value) {
+					if (value.runtimeType == SplashStateAuthenticated) {
+						//TODO: navegar para homepage
+					} else if (value.runtimeType == SplashStateUnauthenticated) {
+						//TODO: navegar para tela de login
+					}
+				});
+			},
+		);
+		super.initState();
+	}
+
+Essa função chama a função "isAuthenticated" do controller para decidir como será a tela inicial.
+
+
+Para a navegação em si, temos os comandos:
+
+	- Navigator.push();
+
+		Passa para uma nova tela.
+		
+	- Navigator.pop(context);
+
+		Volta para a tela anterior.
+
+	- Navigator.maybePop(context);
+
+		Passa para uma nova tela, se possível.
+
+	- Navigator.canPop(context);
+
+		Retorna um booleano que informa se há uma próxima tela para avançar.
+
+	- Navigator.pushReplacement(context, newRoute);
+
+		Troca a tela atual por uma nova (remove (pop) a tela atual e cria uma nova no lugar, assim não é possível
+		voltar para a tela anterior, pois foi removida).
+
+
+Usamos "Navigator.pushReplacement(context, newRoute)" assim:
+
+	Navigator.pushReplacement(
+		context, 
+		MaterialPageRoute(
+			builder: (_) => LoginPage() // classe criada para definir a página de login
+		)
+	);
+
+Então a nossa função initState pode ficar assim:
+
+	@override
+	void initState() {
+		Future.delayed(const Duration(seconds: 2)).then(		// aqui novamente simulamos o tempo de chamada de uma API
+			(value) async {
+				final anthenticationState = controller.isAuthenticated().then((value) {
+					if (value.runtimeType == SplashStateAuthenticated) {
+						Navigator.pushReplacement(
+							context, 
+							MaterialPageRoute(
+								builder: (_) => LoginPage() // classe criada para definir a página de login
+							)
+						);
+					} else if (value.runtimeType == SplashStateUnauthenticated) {
+						//TODO: navegar para tela de login
+					}
+				});
+			},
+		);
+		super.initState();
+	}
+
+
+Podemos também passar para uma nova página já aguardando um valor de retorno dela.
+Suponhamos o botão para a navegação da homepage para uma página "CreateNote" que cadastra notas da classe "NoteModel"
+em um controller:
+
+	floatingActionButton: FloatingActionButton(
+		child: const Icon(Icons.add),
+		onPressed: () async {
+			final myNote = await Navigator.push<NoteModel?> (
+				context,
+				MaterialPageRoute(
+					builder: (_) => const CreateNote(),
+				),
+			);
+
+			if (myNote != null) {
+				controller.addNote(note: myNote);
+			}
+		}
+	),
+
+Repare que "Navigator.push<NoteModel?>" indica que a variável "myNote" está aguardando um valr da classe "NoteModel" e que
+este valor pode ser retornado nulo, pois o usuário pode ir para a página "CreateNote" e desistir de cadastar uma nota,
+retornando à homepage.
+Após isso, caso myNote não seja nulo o seu valor é adicionado à lista de notas no controller (a função "add.Note" é criada
+lá).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
