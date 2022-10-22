@@ -1,0 +1,150 @@
+BRANCH 8 - Rotas nomeadas
+
+Agora os métodos de navegação que já conhecemos mudam um pouco:
+
+	- pushNamed
+	- pushReplacementNamed
+	- popAndPushNamed
+
+e novos métodos surgem:
+
+	- pushNamedAndRemoveUntil
+	- popUntil
+
+Na MaterialApp do "MyApp" temos um parâmetro chamado "routes" que recebe um map onde a chave é o nome da rota.
+A rota '/' sempre é a rota inicial, e as demais são noemadas como '/details', por exemplo. Vejamos:
+
+	Widget build(BuildContext context) {
+		return MaterialApp(
+			title: 'Flutter Demo',
+			theme: ThemeData(primarySwatch: Colors.blue,),
+			initialRoute: '/',
+			routes: {
+				'/': (context) => HomeScreen(),
+				'/details': => DetailScreen(),
+			},
+		);
+	}
+
+Repare que não usamos mais o parâmetro "home" no MaterialApp porque já temos "initialRoute".
+Já para fazer a navegação com rotas nomeadas utilizando argumentos usamos uma classe "ScreenArguments", onde
+no lugar de "Screen" no nome nós usamos o nome da página, assim:
+
+	class HomeArguments {
+		final String name;
+
+		const HomeArguments({required this.name});
+	}
+
+Ou seja, agora criamos uma classe de argumentos da homepage e, portanto, a classe HomePage NÃO TEM mais o atributo "name",
+pois ele está em HomeArguments.
+
+Para resgatar esse argumento pela rota fazemos assim:
+
+	@override
+	Widget build(BuildContext context) {
+		final args = ModalRoute.of(context)!.settings.arguments as HomeArguments;
+	}
+
+Através do context, puxamos as configurações (settings) e os argumentos (arguments) que estão nelas.
+Depois, a expressão "as HomeArguments" informa ao código que esse argumento é do tipo HomeArguments (pois o arguments
+por padrão é do tipo dynamic"). Chama-se a isso de "inferência de tipo".
+
+Atenção que isto NÃO GARANTE que o argumento é do tipo HomeArguments, estamos apenas afirmando ao código que ele é desse
+tipo, e caso não seja o código resultará em erro.
+
+Agora apra navegar usamos:
+
+	Navigator.pushNamed(
+		context,
+		'/home',
+	);
+
+Onde "context" e a rota nomeada ('/home') são parâmetros obrigatórios, mas ainda há um terceiro parâmetro não-obrigatório
+que são os argumentos, assim:
+
+	Navigator.pushNamed(
+		context,
+		'/home',
+		arguments: HomeArguments(name: 'Fábio',),
+	);
+
+ou, usando controller, no caso de TextField:
+
+	Navigator.pushNamed(
+		context,
+		'/home',
+		arguments: HomeArguments(name: controller.text,),
+	);
+
+
+
+
+Navegação interna:
+Navegação onde uma página tem várias páginas dentro de si. São as telas onde deslizando para os lados novas telas são
+exibidas.
+
+Para isso, na nossa função "main" o body recebe um widget "PageView" que recebe como children as várias telas que serão
+exibidas e como controller um "PageController", que .
+
+
+EXTRA:
+
+Para criar uma bottomNavigationBar com vários itens:
+
+	bottomNavigatinoBar: BottomNavigationBar(
+		backgroundColor: Colors.grey.shade200,
+		unselectedItemColor: Colors.grey.shade700,
+		selectedItemColor: Colors.blue,
+		items: const [
+			BottomNavigationBarItem(
+				icon: Icon(Icons.home),
+				label: 'Home'
+			),
+			BottomNavigationBarItem(
+				icon: Icon(Icons.settings),
+				label: 'Settings'
+			),
+		],
+	),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
