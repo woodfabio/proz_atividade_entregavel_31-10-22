@@ -135,7 +135,7 @@ em um controller:
 		}
 	),
 
-Repare que "Navigator.push<NoteModel?>" indica que a variável "myNote" está aguardando um valr da classe "NoteModel" e que
+Repare que "Navigator.push<NoteModel?>" indica que a variável "myNote" está aguardando um valor da classe "NoteModel" e que
 este valor pode ser retornado nulo, pois o usuário pode ir para a página "CreateNote" e desistir de cadastar uma nota,
 retornando à homepage.
 Após isso, caso myNote não seja nulo o seu valor é adicionado à lista de notas no controller (a função "add.Note" é criada

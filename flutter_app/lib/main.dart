@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home/home_page_contacts.dart';
-import 'package:flutter_app/home/home_page_counter.dart';
-import 'package:flutter_app/home/home_page_gridview.dart';
+import 'package:flutter_app/home/homepage_api_project.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePageContacts(),
+      home: HomePageApiProject(),
     );
   }
 }

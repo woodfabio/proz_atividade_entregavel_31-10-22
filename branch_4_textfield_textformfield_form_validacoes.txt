@@ -92,7 +92,7 @@ validator: atributo do TextFormField que recebe uma função, a qual recebe uma 
 				},
 			},
 
-		Podemos também simplesmente atribuir a regular expressiona a uma variável e utilizá-la:
+		Podemos também simplesmente atribuir a regular expression a uma variável e utilizá-la:
 
 			validator: (password) {
 		
@@ -158,7 +158,8 @@ recebe ainda o atributo "onChanged", que chama uma função setState, assim:
 		setState(() {});
 	}
 
-e  também um atributo "key". Para preencher essa key, vamos criar na classe _CreateAccountState este atributo:
+
+e também um atributo "key". Para preencher essa key, vamos criar na classe _CreateAccountState este atributo:
 
 	final _formKey = GlobalKey<FormState>();
 

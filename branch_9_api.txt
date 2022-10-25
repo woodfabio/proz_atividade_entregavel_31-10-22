@@ -27,7 +27,7 @@ Passos para consumir API no Flutter:
 
 1 - Adicionar o package de API "Dio", que nos permite usar protocolos de requisição de API (de forma semelhante ao
 	protocolo HTTP).
-	Acessar "pub.dev/packages/dio", copiar algo... :s
+	Acessar "pub.dev/packages/dio", copiar o trechinho para colar no pubspec.yaml.
 	Digitar no terminal do VS Code "flutter pub add dio".
 
 2 - Na pasta "lib" criar a subpasta "src" ("sources") e nela a subpasta "get_sentences" e nela criar os arquivos:
@@ -172,7 +172,7 @@ Passos para consumir API no Flutter:
 	Aqui sequer trabalhamos com maps, simplesmente usamos o método da classe "SentenceRepository".
 
 Pronto, agora podemos programar a tela para lidar com dados de API.
-Agora na classe "_MyHomePageState" temos um novo atributo contorller e no seu Scaffold vamos usar no atributo body
+Agora na classe "_MyHomePageState" temos um novo atributo controller e no seu Scaffold vamos usar no atributo body
 o widget "FutureBuilder":
 
 	class _MyHomePageState extends State<MyHomePage> {
@@ -202,7 +202,7 @@ o widget "FutureBuilder":
 						itemBuilder: (context, index) {
 							return Card(
 								child: Column(
-									children: children <Widget> [
+									children: <Widget> [
 										Text(snapshot.data![index].quote),
 										Text(snapshot.data![index].author),
 									],
@@ -218,7 +218,7 @@ o widget "FutureBuilder":
 		
 
 	Onde "snapshot" é a "imagem" (os dados) que virão da API.
-	U widget FutureBuilder sempre chama a API novamente a cada setState.
+	O widget FutureBuilder sempre chama a API novamente a cada setState.
 
 
 
