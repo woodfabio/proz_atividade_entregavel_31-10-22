@@ -184,7 +184,7 @@ o widget "FutureBuilder":
 		body: FutureBuilder(
 				future: controller.getSentence(),
 				builder: (context, snapshot) {
-					if (snapshot.hasData && snapshot.hasError) {
+					if (!snapshot.hasData && !snapshot.hasError) {
 						return Center(
 							child: PaginaAguardando(),
 						);

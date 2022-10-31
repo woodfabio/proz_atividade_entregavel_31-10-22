@@ -9,7 +9,7 @@ ListView: exibe uma lista scrolável de widgets na tela, pode ser vertical ou ho
 
 			- Comum
 			- ListView.builder: gera a lista inteira. Recebe como atributos a quantidade de itens (itemCount).
-							Também posusi o atributo "itemBuilder" que recebe os widgets que serão exibidos.
+							Também possui o atributo "itemBuilder" que recebe os widgets que serão exibidos.
 							Usa-se esta sintaxe:
 
 								itemBuilder: (context, index) {

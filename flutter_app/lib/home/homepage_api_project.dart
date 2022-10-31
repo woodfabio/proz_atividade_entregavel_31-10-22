@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/home/sentence_controller.dart';
-import 'package:flutter_app/src/get_sentences/models/cep.dart';
+import 'package:flutter_app/src/get_sentences/models/character.dart';
 import 'package:flutter_app/src/get_sentences/sentence_repository.dart';
+import 'package:flutter_app/src/get_sentences/models/character.dart';
 
 class HomePageApiProject extends StatefulWidget {
   
@@ -12,18 +13,21 @@ class HomePageApiProject extends StatefulWidget {
 class _HomePageApiProjectState extends State<HomePageApiProject> {
 
   final controller = SentenceController(repository: SentenceRepository());
-  final cepController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  Cep? cep;
+  final List<Character>? charList;
    
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ViaCEP API Project'),  
+        title: const Text('Harry Potter API Project'),  
       ),
       body: SingleChildScrollView(
-        child: Form(
+        child: ListView.builder(
+          itemCount: charList.length,
+          itemBuilder: itemBuilder),
+        
+        /*Form(
           onChanged: () {
                 setState(() {});
               },
@@ -58,7 +62,8 @@ class _HomePageApiProjectState extends State<HomePageApiProject> {
 							),
             ],
           ),
-        ),
+        ), */
+
       ),
     );  
   }

@@ -1,7 +1,7 @@
 
 import 'dart:developer';
 
-import 'package:flutter_app/src/get_sentences/models/cep.dart';
+import 'package:flutter_app/src/get_sentences/models/character.dart';
 import 'package:flutter_app/src/get_sentences/sentence_repository.dart';
 
 class SentenceController {

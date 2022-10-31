@@ -172,7 +172,7 @@ onPressed assim:
 
 	ElevatedButton(
 		onPressed: _formKey.currentState!.validate() &&
-				_formKey.currentState! "= null ? () {} : null,
+				_formKey.currentState! != null ? () {} : null,
 		child: Text('Cadastrar'),
 	),
 

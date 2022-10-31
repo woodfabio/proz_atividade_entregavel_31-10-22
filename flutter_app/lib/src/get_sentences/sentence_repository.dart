@@ -1,6 +1,6 @@
 
 import 'package:dio/dio.dart';
-import 'package:flutter_app/src/get_sentences/models/cep.dart';
+import 'package:flutter_app/src/get_sentences/models/character.dart';
 
 class SentenceRepository {
 
