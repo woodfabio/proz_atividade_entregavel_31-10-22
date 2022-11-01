@@ -4,17 +4,18 @@ import 'package:flutter_app/src/get_sentences/models/character.dart';
 
 class SentenceRepository {
 
-	final Dio dio = Dio(
-		BaseOptions(
-			baseUrl: 'http://viacep.com.br/ws',
-		)
-  );
+	final Dio dio = Dio();
 
-	Future<Cep> getSentence(String callAddress) async {
-    final String call = callAddress;
-		final response = await dio.get('/$call/json/');
+	Future<List<Character>> getList() async {
 
-		return Cep.fromMap(response.data);
+    final response = await dio.get('https://hp-api.herokuapp.com/api/characters');
+
+		final data = List.from(response.data);
+
+		final mapList = data.map((e) => Map<String, dynamic>.from(e)).toList();
+
+		return mapList.map((e) => Character.fromMap(e)).toList();
+
 	}
 
 

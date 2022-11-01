@@ -70,7 +70,7 @@ Passos para consumir API no Flutter:
 
 		}
 
-	Essa função pode ter um método para automaticamente converte um map da API em um objeto "Quote":
+	Essa função pode ter um método para automaticamente converter um map da API em um objeto "Quote":
 
 		factory Quote.fromMap(Map<String,dynamic>?map){
 			
